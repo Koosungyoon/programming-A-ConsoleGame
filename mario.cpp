@@ -9,7 +9,7 @@
 #define RIGHT 3
 #define SUBMIT 4 
 
-
+void init(void);
 void titleDraw(void);
 int keyControl(void);
 void gotoxy(int, int);
@@ -78,7 +78,7 @@ int main(void)
 
 	gotoxy(12, 16);
 
-	printf("°ÔÀÓÀÌ Á¾·á µÇ¾ú½À´Ï´Ù.!!!");
+	printf("ê²Œìž„ì´ ì¢…ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.!!!");
 
 	_getch();
 
@@ -99,9 +99,9 @@ void gotoxy(int x, int y) {
 void init(void)
 {
 	system("mode con cols=56 lines=20 | title SUFER MARIO");
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); // ÄÜ¼Ö ÇÚµé°¡Á®¿À±â 
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); // ì½˜ì†” í•¸ë“¤ê°€ì ¸ì˜¤ê¸° 
 	CONSOLE_CURSOR_INFO ConsoleCursor;
-	ConsoleCursor.bVisible = 0; // false ¶Ç´Â 0 : ¼û±â±â 
+	ConsoleCursor.bVisible = 0; // false ë˜ëŠ” 0 : ìˆ¨ê¸°ê¸° 
 	ConsoleCursor.dwSize = 1;
 	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
 	//pKey = 0;
@@ -111,17 +111,17 @@ void init(void)
 void titleDraw(void)
 {
 	printf("\n\n");
-	printf("\t¡á¡á¡á  ¡á  ¡á  ¡á¡á¡á  ¡á¡á¡á  ¡á¡á¡á\n");
-	printf("\t¡á      ¡á  ¡á  ¡á      ¡á      ¡á¡á  ¡á\n");
-	printf("\t¡á¡á¡á  ¡á  ¡á  ¡á¡á¡á  ¡á¡á¡á  ¡á¡á¡á\n");
-	printf("\t    ¡á  ¡á  ¡á  ¡á      ¡á      ¡á¡á\n");
-	printf("\t¡á¡á¡á  ¡á¡á¡á  ¡á      ¡á¡á¡á  ¡á  ¡á\n");
+	printf("\tâ– â– â–   â–   â–   â– â– â–   â– â– â–   â– â– â– \n");
+	printf("\tâ–     â–   â–   â–     â–     â– â–   â– \n");
+	printf("\tâ– â– â–   â–   â–   â– â– â–   â– â– â–   â– â– â– \n");
+	printf("\t  â–   â–   â–   â–     â–     â– â– \n");
+	printf("\tâ– â– â–   â– â– â–    â–     â– â– â–   â–   â– \n");
 	printf("\n");
-	printf("\t\t¢Ã      ¢Ã  ¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã  ¢Ã     ¢Ã\n");
-	printf("\t\t¢Ã¢Ã  ¢Ã¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã    ¢Ã\n");
-	printf("\t\t¢Ã  ¢Ã  ¢Ã  ¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã  ¢Ã  ¢Ã    ¢Ã\n");
-	printf("\t\t¢Ã      ¢Ã  ¢Ã  ¢Ã  ¢Ã¢Ã    ¢Ã  ¢Ã    ¢Ã\n");
-	printf("\t\t¢Ã      ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã     ¢Ã\n");
+	printf("\t\tâ–£      â–£  â–£â–£â–£  â–£â–£â–£  â–£     â–£\n");
+	printf("\t\tâ–£â–£  â–£â–£  â–£  â–£  â–£  â–£  â–£  â–£    â–£\n");
+	printf("\t\tâ–£  â–£  â–£  â–£â–£â–£  â–£â–£â–£  â–£  â–£     â–£\n");
+	printf("\t\tâ–£      â–£  â–£  â–£  â–£â–£    â–£  â–£    â–£\n");
+	printf("\t\tâ–£      â–£  â–£  â–£  â–£  â–£  â–£     â–£\n");
 
 }
 
@@ -150,11 +150,11 @@ int menuDraw() {
 	int x = 24;
 	int y = 15;
 	gotoxy(x - 2, y);
-	printf("> °ÔÀÓ½ÃÀÛ");
+	printf("> ê²Œìž„ì‹œìž‘");
 	gotoxy(x, y + 1);
-	printf("°ÔÀÓÁ¤º¸");
+	printf("ê²Œìž„ì •ë³´");
 	gotoxy(x, y + 2);
-	printf("  Á¾·á  ");
+	printf("  ì¢…ë£Œ  ");
 
 	while (1) {
 		int n = keyControl();
@@ -190,22 +190,22 @@ void Stage(char(*aryStage)[51])
 	for (int i = py - 4; i <= py + 2; i++) {
 		for (int j = px - 2; j < px + 8; ++j) {
 			if (i == py && j == px) {
-				printf("¡×");
+				printf("Â§");
 			}
 			else if (aryStage[i][j] == '0') {
-				printf("¡á");
+				printf("â– ");
 			}
 			else if (aryStage[i][j] == '1') {
 				printf("  ");
 			}
 			else if (aryStage[i][j] == '2') {
-				printf("¢¹");
+				printf("â–·");
 			}
 			else if (aryStage[i][j] == '3') {
-				printf("¢·");
+				printf("â—");
 			}
 			else if (aryStage[i][j] == '4') {
-				printf("¡Ù");
+				printf("â˜†");
 			}
 		}
 		printf("\n");
