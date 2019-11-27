@@ -12,6 +12,7 @@
 void titleDraw(void);
 int keyControl(void);
 void gotoxy(int, int);
+void init(void);
 int menuDraw(void);
 void Stage(char(*aryStage)[51]);
 void object(int x, int y);
@@ -33,10 +34,12 @@ int main(void)
 		{"11111111111111100111111111100111144111111111111111"},
 		{"11111111111111111111100111111110011110000111111111"},
 		{"11111114411111144111111111111111111111111110014411"},
-		{"11111111111111111111111111144441111111111111111111"},
+		{"21111111111111111111111111144441111111111111111111"},
 		{"00000001100000110011000011000000001111000001100000"}
 	};
 	int menuCode;
+
+	init();
 	while (1)
 	{
 		titleDraw();
@@ -74,7 +77,7 @@ int main(void)
 
 	gotoxy(12, 16);
 
-	printf("¿¿¿ ¿¿¿¿¿¿¿!!!");
+	printf("°ÔÀÓÀÌ Á¾·á µÇ¾ú½À´Ï´Ù.!!!");
 
 	_getch();
 
@@ -86,27 +89,38 @@ int main(void)
 
 void gotoxy(int x, int y) {
 
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); // ¿¿ ¿¿¿¿¿¿ 
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); //  
 	COORD pos;
 	pos.X = x;
 	pos.Y = y;
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
+void init(void)
+{
+	system("mode con cols=56 lines=20 | title SUFER MARIO");
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); // ÄÜ¼Ö ÇÚµé°¡Á®¿À±â 
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+	ConsoleCursor.bVisible = 0; // false ¶Ç´Â 0 : ¼û±â±â 
+	ConsoleCursor.dwSize = 1;
+	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
+	//pKey = 0;
+	playing = 1;
+}
 
 void titleDraw(void)
 {
 	printf("\n\n");
-	printf("\t¿¿¿  ¿  ¿  ¿¿¿  ¿¿¿  ¿¿¿\n");
-	printf("\t¿    ¿  ¿  ¿ ¿  ¿    ¿ ¿\n");
-	printf("\t¿¿¿  ¿  ¿  ¿¿¿  ¿¿¿  ¿¿¿\n");
-	printf("\t  ¿  ¿  ¿  ¿    ¿    ¿¿\n");
-	printf("\t¿¿¿  ¿¿¿   ¿    ¿¿¿  ¿ ¿\n");
+	printf("\t¡á¡á¡á  ¡á  ¡á  ¡á¡á¡á  ¡á¡á¡á  ¡á¡á¡á\n");
+	printf("\t¡á      ¡á  ¡á  ¡á      ¡á      ¡á¡á  ¡á\n");
+	printf("\t¡á¡á¡á  ¡á  ¡á  ¡á¡á¡á  ¡á¡á¡á  ¡á¡á¡á\n");
+	printf("\t    ¡á  ¡á  ¡á  ¡á      ¡á      ¡á¡á\n");
+	printf("\t¡á¡á¡á  ¡á¡á¡á  ¡á      ¡á¡á¡á  ¡á  ¡á\n");
 	printf("\n");
-	printf("\t\t¿      ¿  ¿¿¿  ¿¿¿  ¿    ¿\n");
-	printf("\t\t¿¿  ¿¿  ¿  ¿  ¿  ¿  ¿  ¿  ¿\n");
-	printf("\t\t¿  ¿  ¿  ¿¿¿  ¿¿¿  ¿  ¿  ¿\n");
-	printf("\t\t¿      ¿  ¿  ¿  ¿¿    ¿  ¿  ¿\n");
-	printf("\t\t¿      ¿  ¿  ¿  ¿  ¿  ¿    ¿\n");
+	printf("\t\t¢Ã      ¢Ã  ¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã  ¢Ã     ¢Ã\n");
+	printf("\t\t¢Ã¢Ã  ¢Ã¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã    ¢Ã\n");
+	printf("\t\t¢Ã  ¢Ã  ¢Ã  ¢Ã¢Ã¢Ã  ¢Ã¢Ã¢Ã  ¢Ã  ¢Ã    ¢Ã\n");
+	printf("\t\t¢Ã      ¢Ã  ¢Ã  ¢Ã  ¢Ã¢Ã    ¢Ã  ¢Ã    ¢Ã\n");
+	printf("\t\t¢Ã      ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã  ¢Ã     ¢Ã\n");
 
 }
 
@@ -125,7 +139,7 @@ int keyControl() {
 	else if (temp == 'd' || temp == 'D') {
 		return RIGHT;
 	}
-	else if (temp == ' ') {  
+	else if (temp == ' ') {
 		return SUBMIT;
 	}
 }
@@ -134,27 +148,27 @@ int menuDraw() {
 
 	int x = 24;
 	int y = 15;
-	gotoxy(x - 2, y);   
-	printf("> ¿¿¿¿");
+	gotoxy(x - 2, y);
+	printf("> °ÔÀÓ½ÃÀÛ");
 	gotoxy(x, y + 1);
-	printf("¿¿¿¿");
+	printf("°ÔÀÓÁ¤º¸");
 	gotoxy(x, y + 2);
-	printf("  ¿¿  ");
+	printf("  Á¾·á  ");
 
-	while (1) { // ¿¿¿¿  
-		int n = keyControl();   
+	while (1) {
+		int n = keyControl();
 		switch (n) {
-		case UP: { 
-			if (y > 15) {   
-				gotoxy(x - 2, y);   
-				printf(" "); 
-				gotoxy(x - 2, --y);  
-				printf(">"); 
+		case UP: {
+			if (y > 15) {
+				gotoxy(x - 2, y);
+				printf(" ");
+				gotoxy(x - 2, --y);
+				printf(">");
 			}
 			break;
 		}
-		case DOWN: {  
-			if (y < 17) { // ¿¿ 14  
+		case DOWN: {
+			if (y < 17) {
 				gotoxy(x - 2, y);
 				printf(" ");
 				gotoxy(x - 2, ++y);
@@ -175,22 +189,22 @@ void Stage(char(*aryStage)[51])
 	for (int i = py - 4; i <= py + 2; i++) {
 		for (int j = px - 2; j < px + 8; ++j) {
 			if (i == py && j == px) {
-				printf("§");
+				printf("¡×");
 			}
-			else if (aryStage[i][j] == '0') {  
-				printf("¿");
+			else if (aryStage[i][j] == '0') {
+				printf("¡á");
 			}
 			else if (aryStage[i][j] == '1') {
 				printf("  ");
 			}
 			else if (aryStage[i][j] == '2') {
-				printf("¿");
+				printf("¢¹");
 			}
 			else if (aryStage[i][j] == '3') {
-				printf("¿");
+				printf("¢·");
 			}
 			else if (aryStage[i][j] == '4') {
-				printf("¿");
+				printf("¡Ù");
 			}
 		}
 		printf("\n");
@@ -203,7 +217,7 @@ void object(int x, int y)
 	py += y;
 }
 
-void move(char (*aryStage)[51])
+void move(char(*aryStage)[51])
 
 {
 	int mKey;
