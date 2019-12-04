@@ -9,15 +9,14 @@
 #define RIGHT 3
 #define SUBMIT 4 
 
-void init(void);
 void titleDraw(void);
 int keyControl(void);
 void gotoxy(int, int);
 int menuDraw(void);
-void Stage(char(*aryStage)[70]);
+void Stage(char(*aryStage)[80]);
 void objectXY(int x, int y);
-void move(char(*aryStage)[70]);
-void jump(char(*aryStage)[70]);
+void move(char(*aryStage)[80]);
+void jump(char(*aryStage)[80]);
 void drawUI(void);
 
 
@@ -26,11 +25,8 @@ int px = 2;
 int py = 8;
 int playing = 1;
 bool GoJump = false;
-int star = 0;
-
-int main(void)
-{
-	char aryStage[10][70] = {
+int star = 0, big = 0, fire = 0;
+char tempMap[10][70] = {
 	   {"11111111111111111111111111111111111111111111111111111111111111111111"},
 	   {"111111111111111100011111111111111110011111001110001111111111111111000"},
 	   {"111111111100111111111111001111001111111111111111111111111111001111111"},
@@ -41,6 +37,33 @@ int main(void)
 	   {"111111111111144111111111111111111111111110014411111111144111111441111"},
 	   {"112111111111111111111111111444411111111111111111111111111111111111133"},
 	   {"000000011000001100110000110000000011110000011000000000000110000011001"}
+}; // 맵 임시저장할 배열  
+char aryStage[10][70] = {
+	   {"11111111111111111111111111111111111111111111111111111111111111111111"},
+	   {"111111111111111100011111111111111110011111001110001111111111111111000"},
+	   {"111111111100111111111111001111001111111111111111111111111111001111111"},
+	   {"000000111111111111111111111111111111111111111111110000001111111111111"},
+	   {"111111111001111111111111111111111111111111111111111111111110011111111"},
+	   {"111111111111111001111111111001111441111111111111111111111111111110011"},
+	   {"111111110011111111111100111111110011110000111111111111111111111111111"},
+	   {"111111111111144111111111111111111111111110014411111111144111111441111"},
+	   {"11211111111111111111111111m444411111111111111111111111111111111111133"},
+	   {"000000011000001100110000110000000011110000011000000000000110000011001"}
+};
+
+int main(void)
+{
+	char aryStage[10][80] = {
+	   {"1111111111111111111111111111111111111111111111111111111111111111111111111111111"},
+	   {"1111111111111111000111111111111111100111110011100011111111111111110001111111111"},
+	   {"1111111111001111111111110011110011111111111111111111111111110011111111111111111"},
+	   {"0000001111111111111111111111111111111111111111111100000011111111111111111111111"},
+	   {"1111111110011111111111111111111111111111111111111111111111100111111111111111111"},
+	   {"1111111111111110011111111110011114411111111111111111111111111111100111111111111"},
+	   {"1111111100111111111111001111111100111100001111111111111111111111111111111111111"},
+	   {"1111111111111441111111111111111111111111100144111111111441111114411111111111111"},
+	   {"11211611111111111111111111m4445111111111111111111111111111111151111331111111111"},
+	   {"0000000110000011001100001100000000111100000110000000000001100000110001111111111"}
 	};
 	int menuCode;
 	while (1)
@@ -80,11 +103,7 @@ int main(void)
 
 	gotoxy(12, 16);
 
-<<<<<<< HEAD
 	printf("게임이 종료되었습니다!!!");
-=======
-	printf("寃뚯엫??醫낅즺 ?섏뿀?듬땲??!!!");
->>>>>>> 946e7c5604eb34189702d4428b2f3e20b4861af6
 
 	_getch();
 
@@ -102,25 +121,10 @@ void gotoxy(int x, int y) {
 	pos.Y = y;
 	SetConsoleCursorPosition(consoleHandle, pos);
 }
-<<<<<<< HEAD
-=======
-void init(void)
-{
-	system("mode con cols=56 lines=20 | title SUFER MARIO");
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE); // 肄섏넄 ?몃뱾媛?몄삤湲?
-	CONSOLE_CURSOR_INFO ConsoleCursor;
-	ConsoleCursor.bVisible = 0; // false ?먮뒗 0 : ?④린湲?
-	ConsoleCursor.dwSize = 1;
-	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
-	//pKey = 0;
-	playing = 1;
-}
->>>>>>> 946e7c5604eb34189702d4428b2f3e20b4861af6
 
 void titleDraw(void)
 {
 	printf("\n\n");
-<<<<<<< HEAD
 	printf("\t■■■  ■  ■  ■■■  ■■■  ■■■\n");
 	printf("\t■    ■  ■  ■ ■  ■    ■ ■\n");
 	printf("\t■■■  ■  ■  ■■■  ■■■  ■■■\n");
@@ -132,19 +136,6 @@ void titleDraw(void)
 	printf("\t\t▣  ▣  ▣  ▣▣▣  ▣▣▣  ▣  ▣  ▣\n");
 	printf("\t\t▣      ▣  ▣  ▣  ▣▣    ▣  ▣  ▣\n");
 	printf("\t\t▣      ▣  ▣  ▣  ▣  ▣  ▣    ▣\n");
-=======
-	printf("\t?졻뼚?? ?? ?? ?졻뼚?? ?졻뼚?? ?졻뼚??n");
-	printf("\t??   ?? ?? ??   ??   ?졻뼚  ??n");
-	printf("\t?졻뼚?? ?? ?? ?졻뼚?? ?졻뼚?? ?졻뼚??n");
-	printf("\t  ?? ?? ?? ??   ??   ?졻뼚\n");
-	printf("\t?졻뼚?? ?졻뼚??  ??   ?졻뼚?? ?? ??n");
-	printf("\n");
-	printf("\t\t??     ?? ?ｂ뼠?? ?ｂ뼠?? ??    ??n");
-	printf("\t\t?ｂ뼠  ?ｂ뼠  ?? ?? ?? ?? ?? ??   ??n");
-	printf("\t\t?? ?? ?? ?ｂ뼠?? ?ｂ뼠?? ?? ??    ??n");
-	printf("\t\t??     ?? ?? ?? ?ｂ뼠    ?? ??   ??n");
-	printf("\t\t??     ?? ?? ?? ?? ?? ??    ??n");
->>>>>>> 946e7c5604eb34189702d4428b2f3e20b4861af6
 
 }
 
@@ -174,17 +165,12 @@ int menuDraw() {
 
 	int x = 24;
 	int y = 15;
-<<<<<<< HEAD
 	gotoxy(x - 2, y); // -2 한 이유는 > 를 출력해야하기 때문에  
 	printf("> 게임시작");
-=======
-	gotoxy(x - 2, y);
-	printf("> 寃뚯엫?쒖옉");
->>>>>>> 946e7c5604eb34189702d4428b2f3e20b4861af6
 	gotoxy(x, y + 1);
-	printf("寃뚯엫?뺣낫");
+	printf("게임정보");
 	gotoxy(x, y + 2);
-	printf("  醫낅즺  ");
+	printf("  종료  ");
 
 	while (1) { // 무한반복  
 		int n = keyControl(); // 키보드 이벤트를 키값으로 받아오기  
@@ -214,27 +200,64 @@ int menuDraw() {
 		}
 	}
 }
-
-void Stage(char(*aryStage)[70])
+/*void bigstate(void)
 {
-<<<<<<< HEAD
-	isystem("cls");
+	printf("§\n");
+	printf("§");
+}*/
+void Stage(char(*aryStage)[80])// function of scroll
+{
+	system("cls");
 	if (px < 0)
 	{
 		px = 0;
 	}
-	if (px >= 70)
-		px = 69;
-	if (px > 61 && px < 70)
+	if (px >= 69)
+		px = 68;
+	if (px > 61 && px < 69)
 	{
-		for (int q = py - 4; q < py + 1; q++)
+
+		for (int q = py - 4; q < py + 2; q++)
 		{
-			for (int w = 62; w < 70; w++)
+			for (int w = px; w < px + 8; w++)
 			{
 				if (q == py && w == px) {
-					printf("§");
+					if (aryStage[q][w] == '4')
+					{
+						aryStage[q][w] = '1';
+						//printf("  ");
+						star++;
+					}
+					else if (aryStage[q][w] == '5')
+					{
+						aryStage[q][w] = '1';
+						big = 1;
+						//bigstate(big, q, w);
+					}
+					else if (aryStage[q][w] == '6')
+					{
+						aryStage[q][w] = '1';
+						fire = 1;
+					}
+					if (big == 1)
+					{
+						printf("＃\n");
+						printf("§");
+					}
+					else
+						printf("§");
 				}
-				else if (aryStage[q][w] == '0') {   // 0:벽 1:길 2:시작점 3:도착점 4:코인
+				else if (aryStage[q][w] == '5')
+				{
+					printf("♡");
+				}
+				else if (aryStage[q][w] == '6')
+				{
+					printf("♧");
+				}
+				else if (aryStage[q][w] == '0')
+					//|| aryStage[q][w]=='5'|| aryStage[q][w]=='6') {   // 0:벽 1:길 2:시작점 3:도착점 4:코인
+				{
 					printf("■");
 				}
 				else if (aryStage[q][w] == '1') {
@@ -258,7 +281,39 @@ void Stage(char(*aryStage)[70])
 		for (int i = py - 4; i <= py + 1; i++) {
 			for (int j = px; j < px + 10; ++j) {
 				if (i == py && j == px) {
-					printf("§");
+					if (aryStage[i][j] == '4')
+					{
+						aryStage[i][j] = '1';
+						//printf("  ");
+						star++;
+					}
+					else if (aryStage[i][j] == '5')
+					{
+						aryStage[i][j] = '1';
+						big = 1;
+						//bigstate(big, i, j);
+					}
+					else if (aryStage[i][j] == '6')
+					{
+						aryStage[i][j] = '1';
+						fire = 1;
+					}
+					if (big == 1)
+					{
+						printf("§\n");
+						printf("§");
+					}
+					else
+						printf("§");
+					//printf("§");
+				}
+				else if (aryStage[i][j] == '5')
+				{
+					printf("♡");
+				}
+				else if (aryStage[i][j] == '6')
+				{
+					printf("♧");
 				}
 				else if (aryStage[i][j] == '0') {   // 0:벽 1:길 2:시작점 3:도착점 4:코인
 					printf("■");
@@ -275,28 +330,6 @@ void Stage(char(*aryStage)[70])
 				else if (aryStage[i][j] == '4') {
 					printf("☆");
 				}
-=======
-	system("cls");
-	for (int i = py - 4; i <= py + 2; i++) {
-		for (int j = px - 2; j < px + 8; ++j) {
-			if (i == py && j == px) {
-				printf("짠");
-			}
-			else if (aryStage[i][j] == '0') {
-				printf("??);
-			}
-			else if (aryStage[i][j] == '1') {
-				printf("  ");
-			}
-			else if (aryStage[i][j] == '2') {
-				printf("??);
-			}
-			else if (aryStage[i][j] == '3') {
-				printf("??);
-			}
-			else if (aryStage[i][j] == '4') {
-				printf("??);
->>>>>>> 946e7c5604eb34189702d4428b2f3e20b4861af6
 			}
 			printf("\n");
 		}
@@ -312,10 +345,12 @@ void objectXY(int x, int y)
 
 
 
-void move(char(*aryStage)[70])
+void move(char(*aryStage)[80])
 
 {
 	int mKey;
+	memcpy(tempMap, aryStage, sizeof(tempMap));
+
 	while (playing)
 
 	{
@@ -360,8 +395,23 @@ void move(char(*aryStage)[70])
 	playing = 1;
 
 }
-<<<<<<< HEAD
-void jump(char(*aryStage)[70])
+/*void movecontrol(int _x, int _y)
+{
+	char mapobject = aryStage[py+_y][px+_x];
+
+	if (mapobject == '4')
+	{
+		gotoxy(px, py);
+		printf("  ");
+		gotoxy(px + _x, py + _y);
+		printf("$");
+		px += _x;
+		py += _y;
+	}
+
+}*/
+
+void jump(char(*aryStage)[80])
 {
 	bool isJumping = true;
 	bool isBottom = true;
@@ -414,7 +464,10 @@ void drawUI(void)
 	gotoxy(34, 16);
 
 	printf("STAR : %d개", star);
-
+	gotoxy(34, 17);
+	printf("BIG : %d", big);
+	gotoxy(34, 18);
+	printf("FIRE : %d", fire);
 }
 
 
